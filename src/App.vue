@@ -1,25 +1,65 @@
+<script setup>
+  import { ref } from "vue";
+  import { v4 as uuidv4 } from 'uuid';
+  import dayjs from 'dayjs';
+  import relativeTime from 'dayjs/plugin/relativeTime';
+
+  dayjs.extend(relativeTime)
+
+  const getRandomLightColor = () => {
+    let color = "hsl(" + Math.random() * 360 +", 100%, 75%)"
+    return color
+  }
+
+  const showModal = ref(false)
+
+  const toggleModal = () => showModal.value = !showModal.value
+
+  const newNote = ref("")
+  const notes = ref([])
+
+  const addToNotes = () => {
+    notes.value.push(
+      {
+        id: uuidv4(),
+        text: newNote.value,
+        date: new Date(),
+        backgroundColor: getRandomLightColor()
+      }
+    )
+
+
+    toggleModal()
+    newNote.value = ""
+  } 
+
+</script>
+
 <template>
   <main>
-    <!-- <div id="overlay">
+    <div id="overlay" v-if="showModal">
       <div class="modal">
-        <textarea name="note" id="note" cols="30" rows="10"></textarea>
-        <button id="add-note">
+        <textarea v-model="newNote" name="note" id="note" cols="30" rows="10"></textarea>
+        <button id="add-note" @click="addToNotes">
           Add Note
         </button>
-        <button id="close-add">
+        <button id="close-add" @click="toggleModal">
           Close
         </button>
       </div>
-    </div> -->
+    </div>
+    
     <div class="container">
       <header>
         <h1 id="app-text">Yo Notes</h1>
-        <button id="add-btn">+</button>
+        <button id="add-btn" @click="toggleModal" >+</button>
       </header>
       <div class="cards-container">
-        <div class="card">
-          <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi nobis dignissimos iste pariatur eum consequuntur voluptatem quisquam esse modi, alias illo corporis reiciendis. Aliquid harum excepturi voluptate vel, consectetur soluta.</p>
-          <p class="muted-text">04/28/2033</p>
+        <div v-for="note in notes" :key="note.id" class="card" :style="{backgroundColor: note.backgroundColor}" >
+          <p class="card-text">
+            {{ note.text }}
+          </p>
+          <p class="muted-text">{{ dayjs(note.date.toString()).toNow() }}</p>
         </div>
       </div>
     </div>
@@ -57,14 +97,13 @@
     height: 2rem;
     cursor: pointer;
     color: white;
-    background-color: rgb(21, 20, 20);
+    background-color: rgb(52, 103, 214);
     font-size: 1rem;
   }
 
   .card{
     width: 16rem;
     height: 16rem;
-    background-color: yellowgreen;
     padding: 1rem;
     border-radius: 1rem;
     display: flex;
@@ -72,6 +111,7 @@
     justify-content: space-between;
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
+    color: black;
   }
 
   .muted-text{
