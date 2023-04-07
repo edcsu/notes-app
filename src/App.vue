@@ -13,8 +13,10 @@
 
   const showModal = ref(false)
 
-  const toggleModal = () => showModal.value = !showModal.value
-
+  const toggleModal = () => {
+    showModal.value = !showModal.value
+    errorMessage.value = ""
+  }
   const errorMessage = ref("")
   const newNote = ref("")
   const notes = ref([])
@@ -36,7 +38,6 @@
 
     toggleModal()
     newNote.value = ""
-    errorMessage.value = ""
   } 
 
 </script>
@@ -45,7 +46,7 @@
   <main>
     <div id="overlay" v-if="showModal">
       <div class="modal">
-        <textarea v-model="newNote.trim" name="note" id="note" cols="30" rows="10"></textarea>
+        <textarea v-model.trim="newNote" name="note" id="note" cols="30" rows="10"></textarea>
         <p class="error-message" v-if="errorMessage">{{errorMessage}}</p>
         <button id="add-note" @click="addToNotes">
           Add Note
