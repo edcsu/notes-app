@@ -1,6 +1,10 @@
 <script setup>
   import { ref } from "vue";
   import { v4 as uuidv4 } from 'uuid';
+  import dayjs from 'dayjs';
+  import relativeTime from 'dayjs/plugin/relativeTime';
+
+  dayjs.extend(relativeTime)
 
   const getRandomLightColor = () => {
     let color = "hsl(" + Math.random() * 360 +", 100%, 75%)"
@@ -51,13 +55,11 @@
         <button id="add-btn" @click="toggleModal" >+</button>
       </header>
       <div class="cards-container">
-        <div class="card">
+        <div v-for="note in notes" class="card" :style="{backgroundColor: note.backgroundColor}" >
           <p class="card-text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-            Eligendi nobis dignissimos iste pariatur eum consequuntur voluptatem quisquam esse modi, alias illo corporis reiciendis. 
-            Aliquid harum excepturi voluptate vel, consectetur soluta.
+            {{ note.text }}
           </p>
-          <p class="muted-text">04/28/2033</p>
+          <p class="muted-text">{{ dayjs(note.date.toString()).toNow() }}</p>
         </div>
       </div>
     </div>
@@ -102,7 +104,6 @@
   .card{
     width: 16rem;
     height: 16rem;
-    background-color: yellowgreen;
     padding: 1rem;
     border-radius: 1rem;
     display: flex;
@@ -110,6 +111,7 @@
     justify-content: space-between;
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
+    color: black;
   }
 
   .muted-text{
