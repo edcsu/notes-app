@@ -13,12 +13,20 @@
 
   const showModal = ref(false)
 
-  const toggleModal = () => showModal.value = !showModal.value
-
+  const toggleModal = () => {
+    showModal.value = !showModal.value
+    errorMessage.value = ""
+  }
+  const errorMessage = ref("")
   const newNote = ref("")
   const notes = ref([])
 
   const addToNotes = () => {
+
+    if (newNote.value.length < 2) {
+      return errorMessage.value = "Note needs to be 2 characters or more"
+    }
+
     notes.value.push(
       {
         id: uuidv4(),
@@ -27,7 +35,6 @@
         backgroundColor: getRandomLightColor()
       }
     )
-
 
     toggleModal()
     newNote.value = ""
@@ -39,7 +46,8 @@
   <main>
     <div id="overlay" v-if="showModal">
       <div class="modal">
-        <textarea v-model="newNote" name="note" id="note" cols="30" rows="10"></textarea>
+        <textarea v-model.trim="newNote" name="note" id="note" cols="30" rows="10"></textarea>
+        <p class="error-message" v-if="errorMessage">{{errorMessage}}</p>
         <button id="add-note" @click="addToNotes">
           Add Note
         </button>
@@ -167,5 +175,9 @@
     background-color: rgb(222, 81, 81);
     margin-top: 1rem;
     border: none;
+  }
+
+  .error-message {
+    color: rgb(222, 81, 81);
   }
 </style>
