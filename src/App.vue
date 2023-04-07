@@ -1,5 +1,16 @@
 <template>
   <main>
+    <!-- <div id="overlay">
+      <div class="modal">
+        <textarea name="note" id="note" cols="30" rows="10"></textarea>
+        <button id="add-note">
+          Add Note
+        </button>
+        <button id="close-add">
+          Close
+        </button>
+      </div>
+    </div> -->
     <div class="container">
       <header>
         <h1 id="app-text">Yo Notes</h1>
@@ -72,5 +83,49 @@
   .cards-container{
     display: flex;
     flex-wrap: wrap;
+  }
+
+  #overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.77);
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    align-content: center;
+  }
+
+  .modal {
+    width: 50rem;
+    background-color: white;
+    border-radius: 1rem;
+    padding: 1rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+  }
+
+  #add-note{
+    padding: 1rem 2rem;
+    font-size: 2rem;
+    cursor: pointer;
+    width: 100%;
+    color: white;
+    background-color: blueviolet;
+    margin-top: 1rem;
+    border: none;
+  }
+
+  #close-add{
+    padding: 1rem 2rem;
+    font-size: 2rem;
+    cursor: pointer;
+    width: 100%;
+    color: white;
+    background-color: rgb(222, 81, 81);
+    margin-top: 1rem;
+    border: none;
   }
 </style>
