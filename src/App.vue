@@ -7,8 +7,8 @@
       </header>
       <div class="cards-container">
         <div class="card">
-          <p class="card-text"></p>
-          <p class="muted-text"></p>
+          <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi nobis dignissimos iste pariatur eum consequuntur voluptatem quisquam esse modi, alias illo corporis reiciendis. Aliquid harum excepturi voluptate vel, consectetur soluta.</p>
+          <p class="muted-text">04/28/2033</p>
         </div>
       </div>
     </div>
@@ -48,5 +48,29 @@
     color: white;
     background-color: rgb(21, 20, 20);
     font-size: 1rem;
+  }
+
+  .card{
+    width: 16rem;
+    height: 16rem;
+    background-color: yellowgreen;
+    padding: 1rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .muted-text{
+    font-size: small;
+    font-weight: bold;
+    color: grey;
+  }
+
+  .cards-container{
+    display: flex;
+    flex-wrap: wrap;
   }
 </style>
