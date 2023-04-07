@@ -55,7 +55,7 @@
         <button id="add-btn" @click="toggleModal" >+</button>
       </header>
       <div class="cards-container">
-        <div v-for="note in notes" class="card" :style="{backgroundColor: note.backgroundColor}" >
+        <div v-for="note in notes" :key="note.id" class="card" :style="{backgroundColor: note.backgroundColor}" >
           <p class="card-text">
             {{ note.text }}
           </p>
